@@ -14,6 +14,7 @@ ENV PORT=3000
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY index.js package*.json ./
+COPY public ./public
 
 USER node
 

@@ -45,6 +45,7 @@ const render = () => {
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.checked = todo.completed;
+    checkbox.setAttribute("aria-label", `Mark todo ${todo.id} as ${todo.completed ? "active" : "complete"}`);
     checkbox.addEventListener("change", async () => {
       await api(`/api/todos/${todo.id}`, {
         method: "PUT",
@@ -53,9 +54,18 @@ const render = () => {
       await loadTodos();
     });
 
+    const main = document.createElement("div");
+    main.className = "todo-main";
+
     const title = document.createElement("input");
     title.type = "text";
     title.value = todo.title;
+    title.className = "title";
+    title.setAttribute("aria-label", `Edit todo ${todo.id}`);
+
+    const meta = document.createElement("p");
+    meta.className = "todo-meta";
+    meta.textContent = todo.completed ? "Completed" : "In progress";
 
     const save = document.createElement("button");
     save.type = "button";
@@ -78,20 +88,28 @@ const render = () => {
       await loadTodos();
     });
 
-    item.append(checkbox, title, save, remove);
+    const actions = document.createElement("div");
+    actions.className = "todo-actions";
+    actions.append(save, remove);
+
+    main.append(title, meta);
+    item.append(checkbox, main, actions);
     todoList.appendChild(item);
   });
 };
 
 const loadTodos = async () => {
   serverStatus.textContent = "Loading...";
+  serverStatus.dataset.state = "loading";
   try {
     todos = await api("/api/todos");
     serverStatus.textContent = "Online";
+    serverStatus.dataset.state = "online";
     render();
     emptyState.textContent = defaultEmptyState;
   } catch (error) {
     serverStatus.textContent = "Offline";
+    serverStatus.dataset.state = "offline";
     todoList.innerHTML = "";
     emptyState.hidden = false;
     emptyState.textContent = error.message;

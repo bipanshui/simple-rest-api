@@ -8,29 +8,46 @@
     <script defer src="/app.js"></script>
   </head>
   <body>
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
     <main class="shell">
       <section class="hero">
-        <div>
+        <div class="hero-copy">
           <p class="eyebrow">Todo Studio</p>
-          <h1>Manage tasks from a clean browser UI.</h1>
+          <h1>A sharper surface for a tiny task API.</h1>
           <p class="lead">
-            Add, edit, complete, and delete todos without touching the API
-            directly.
+            Add, edit, complete, and delete todos through a browser UI that
+            feels deliberate instead of generic.
           </p>
+          <div class="hero-pills" aria-label="Highlights">
+            <span>In-memory data</span>
+            <span>Keyboard friendly</span>
+            <span>Live REST demo</span>
+          </div>
         </div>
         <div class="status-card">
           <span class="status-label">Server</span>
-          <strong id="serverStatus">Connecting...</strong>
+          <strong id="serverStatus" class="status-value" data-state="loading">
+            Connecting...
+          </strong>
         </div>
       </section>
 
       <section class="panel">
+        <div class="panel-head">
+          <div>
+            <p class="section-label">Workspace</p>
+            <h2>Current todos</h2>
+          </div>
+          <p class="panel-note">Changes stay in memory until the server restarts.</p>
+        </div>
+
         <form id="todoForm" class="todo-form">
           <input
             id="todoTitle"
             type="text"
             maxlength="140"
-            placeholder="Write a new task..."
+            placeholder="Write a new task"
             autocomplete="off"
             required
           />
@@ -38,7 +55,7 @@
         </form>
 
         <div class="toolbar">
-          <span id="todoCount">0 items</span>
+          <span id="todoCount" class="todo-count">0 items</span>
           <button id="refreshButton" type="button" class="ghost">
             Refresh
           </button>

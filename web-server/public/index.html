@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo Studio</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script defer src="/app.js"></script>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Todo Studio</p>
+          <h1>Manage tasks from a clean browser UI.</h1>
+          <p class="lead">
+            Add, edit, complete, and delete todos without touching the API
+            directly.
+          </p>
+        </div>
+        <div class="status-card">
+          <span class="status-label">Server</span>
+          <strong id="serverStatus">Connecting...</strong>
+        </div>
+      </section>
+
+      <section class="panel">
+        <form id="todoForm" class="todo-form">
+          <input
+            id="todoTitle"
+            type="text"
+            maxlength="140"
+            placeholder="Write a new task..."
+            autocomplete="off"
+            required
+          />
+          <button type="submit">Add Todo</button>
+        </form>
+
+        <div class="toolbar">
+          <span id="todoCount">0 items</span>
+          <button id="refreshButton" type="button" class="ghost">
+            Refresh
+          </button>
+        </div>
+
+        <ul id="todoList" class="todo-list" aria-live="polite"></ul>
+        <p id="emptyState" class="empty-state">No todos yet. Add one above.</p>
+      </section>
+    </main>
+  </body>
+</html>

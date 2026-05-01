@@ -1,9 +1,12 @@
 const express = require("express");
+const path = require("path");
 
 const app = express();
 const port = process.env.PORT || 3000;
+const publicDir = path.join(__dirname, "public");
 
 app.use(express.json());
+app.use(express.static(publicDir));
 
 const todos = [
   { id: 1, title: "Learn Express", completed: false },
@@ -12,7 +15,7 @@ const todos = [
 const nextId = () => (todos.length ? Math.max(...todos.map((todo) => todo.id)) + 1 : 1);
 
 app.get("/", (req, res) => {
-  res.json({ message: "REST API is running" });
+  res.sendFile(path.join(publicDir, "index.html"));
 });
 
 app.get("/api/health", (req, res) => {
